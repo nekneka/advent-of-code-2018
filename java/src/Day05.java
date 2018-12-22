@@ -10,6 +10,29 @@ public class Day05 {
     String polymer = readInput();
     String reducedPolymer = reducePolymer(polymer);
     System.out.println("Part 1 answer: " + reducedPolymer.length());
+    System.out.println("Part 1 answer: " + reducedPolymer);
+
+    // part 2
+    System.out.println("Part 2 answer: " + findMinPolymerLength(reducedPolymer));
+  }
+
+  private static int findMinPolymerLength (String reducedPolymer) {
+    String output = "";
+    int minLength = reducedPolymer.length();
+
+
+    for(char ch = 'a'; ch <='z'; ch++) {
+      // remove char from the string:
+      StringBuilder polymerWRemovedChar = new StringBuilder();
+      for (char c : reducedPolymer.toCharArray()) {
+        if (Character.toLowerCase(c) != ch) {
+          polymerWRemovedChar.append(c);
+        }
+      }
+      String minReducedPolymer = reducePolymer(polymerWRemovedChar.toString());
+      minLength = Math.min(minLength, minReducedPolymer.length());
+    }
+    return minLength;
   }
 
   private static String reducePolymer(String polymer) {
